@@ -152,10 +152,16 @@ export const getCurrentSort = () => {
 
 export const getSortedTodosByActiveProject = () => {
     let projectTodos = getTodosByActiveProject();
+
+    const pending = projectTodos.filter((t) => !t.completed);
+    const completed = projectTodos.filter((t) => t.completed);
+
+    let sortedPending = pending;
+
     if (currentSort === 'dueDate') {
-        projectTodos = sortTodosByDueDate(projectTodos);
+        sortedPending = sortTodosByDueDate(pending);
     } else if (currentSort === 'priority') {
-        projectTodos = sortTodosByPriority(projectTodos);
+        sortedPending = sortTodosByPriority(pending);
     }
-    return projectTodos;
+    return [...sortedPending, ...completed];
 };
