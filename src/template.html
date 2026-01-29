@@ -1,14 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webpack Template</title>
+    <title>Todo App</title>
 </head>
 
 <body>
-    <div id="app"></div>
+    <div class="app-container">
+        <!-- Sidebar s projektmi -->
+        <aside class="sidebar">
+            <h1>📋 Todo App</h1>
+
+            <ul class="project-list">
+                <!-- Projekty sa renderujú dynamicky -->
+            </ul>
+
+            <button class="btn-add-project">+ Nový projekt</button>
+        </aside>
+
+        <!-- Hlavný obsah -->
+        <main class="main-content">
+            <button class="btn-add-todo">+ Pridať úlohu</button>
+
+            <div class="todo-list">
+                <!-- Todos sa renderujú dynamicky -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal pre pridanie todo -->
+    <div class="modal modal-add-todo hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nová úloha</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <form class="form-add-todo">
+                <div class="form-group">
+                    <label for="title">Názov *</label>
+                    <input type="text" name="title" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Popis</label>
+                    <textarea name="description" id="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="dueDate">Termín</label>
+                    <input type="date" name="dueDate" id="dueDate">
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priorita</label>
+                    <select name="priority" id="priority">
+                        <option value="low">Nízka</option>
+                        <option value="medium" selected>Stredná</option>
+                        <option value="high">Vysoká</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Poznámky</label>
+                    <textarea name="notes" id="notes"></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Pridať úlohu</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal pre pridanie projektu -->
+    <div class="modal modal-add-project hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Nový projekt</h3>
+                <button class="modal-close">×</button>
+            </div>
+            <form class="form-add-project">
+                <div class="form-group">
+                    <label for="project-name">Názov projektu *</label>
+                    <input type="text" name="name" id="project-name" required>
+                </div>
+                <button type="submit" class="btn-submit">Vytvoriť projekt</button>
+            </form>
+        </div>
+    </div>
+
 </body>
 
 </html>
