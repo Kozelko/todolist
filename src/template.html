@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sk">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -9,114 +9,114 @@
 
 <body>
     <div class="app-container">
-        <!-- Sidebar s projektmi -->
+        <!-- Sidebar with projects -->
         <aside class="sidebar">
             <h1>📋 Todo App</h1>
 
             <ul class="project-list">
-                <!-- Projekty sa renderujú dynamicky -->
+                <!-- Projects are rendered dynamically -->
             </ul>
 
-            <button class="btn-add-project">+ Nový projekt</button>
+            <button class="btn-add-project">+ New Project</button>
         </aside>
 
-        <!-- Hlavný obsah -->
+        <!-- Main content -->
         <main class="main-content">
-            <button class="btn-add-todo">+ Pridať úlohu</button>
+            <button class="btn-add-todo">+ Add Task</button>
             <div class="todo-list">
-                <!-- Todos sa renderujú dynamicky -->
+                <!-- Todos are rendered dynamically -->
             </div>
         </main>
     </div>
 
-    <!-- Modal pre pridanie todo -->
+    <!-- Modal for adding todo -->
     <div class="modal modal-add-todo hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Nová úloha</h3>
+                <h3>New Task</h3>
                 <button class="modal-close">×</button>
             </div>
             <form class="form-add-todo">
                 <div class="form-group">
-                    <label for="title">Názov *</label>
+                    <label for="title">Title *</label>
                     <input type="text" name="title" id="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="description">Popis</label>
+                    <label for="description">Description</label>
                     <textarea name="description" id="description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="dueDate">Termín</label>
+                    <label for="dueDate">Due Date</label>
                     <input type="date" name="dueDate" id="dueDate">
                 </div>
                 <div class="form-group">
-                    <label for="priority">Priorita</label>
+                    <label for="priority">Priority</label>
                     <select name="priority" id="priority">
-                        <option value="low">Nízka</option>
-                        <option value="medium" selected>Stredná</option>
-                        <option value="high">Vysoká</option>
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="notes">Poznámky</label>
+                    <label for="notes">Notes</label>
                     <textarea name="notes" id="notes"></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Pridať úlohu</button>
+                <button type="submit" class="btn-submit">Add Task</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal pre pridanie projektu -->
+    <!-- Modal for adding project -->
     <div class="modal modal-add-project hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Nový projekt</h3>
+                <h3>New Project</h3>
                 <button class="modal-close">×</button>
             </div>
             <form class="form-add-project">
                 <div class="form-group">
-                    <label for="project-name">Názov projektu *</label>
+                    <label for="project-name">Project Name *</label>
                     <input type="text" name="name" id="project-name" required>
                 </div>
-                <button type="submit" class="btn-submit">Vytvoriť projekt</button>
+                <button type="submit" class="btn-submit">Create Project</button>
             </form>
         </div>
     </div>
 
-    <!-- Modal pre edit todo -->
+    <!-- Modal for editing todo -->
     <div class="modal modal-edit-todo hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Upraviť úlohu</h3>
+                <h3>Edit Task</h3>
                 <button class="modal-close">×</button>
             </div>
             <form class="form-edit-todo">
                 <input type="hidden" name="todoId" id="edit-todoId">
                 <div class="form-group">
-                    <label for="edit-title">Názov *</label>
+                    <label for="edit-title">Title *</label>
                     <input type="text" name="title" id="edit-title" required>
                 </div>
                 <div class="form-group">
-                    <label for="edit-description">Popis</label>
+                    <label for="edit-description">Description</label>
                     <textarea name="description" id="edit-description"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="edit-dueDate">Termín</label>
+                    <label for="edit-dueDate">Due Date</label>
                     <input type="date" name="dueDate" id="edit-dueDate">
                 </div>
                 <div class="form-group">
-                    <label for="edit-priority">Priorita</label>
+                    <label for="edit-priority">Priority</label>
                     <select name="priority" id="edit-priority">
-                        <option value="low">Nízka</option>
-                        <option value="medium">Stredná</option>
-                        <option value="high">Vysoká</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="edit-notes">Poznámky</label>
+                    <label for="edit-notes">Notes</label>
                     <textarea name="notes" id="edit-notes"></textarea>
                 </div>
-                <button type="submit" class="btn-submit">Uložiť úlohu</button>
+                <button type="submit" class="btn-submit">Save Task</button>
             </form>
         </div>
     </div>

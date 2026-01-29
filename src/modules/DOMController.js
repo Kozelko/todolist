@@ -14,12 +14,12 @@ const clearElement = (element) => {
     element.innerHTML = '';
 };
 
-// Formátovanie dátumu
+// Date formatting
 const formatDueDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    if (isToday(date)) return 'Dnes';
-    if (isTomorrow(date)) return 'Zajtra';
+    if (isToday(date)) return 'Today';
+    if (isTomorrow(date)) return 'Tomorrow';
     return format(date, 'dd.MM.yyyy');
 };
 
@@ -80,9 +80,9 @@ export const renderTodos = () => {
     // Sort select
     const sortSelect = createElement('select', 'sort-select');
     sortSelect.innerHTML = `
-        <option value="none" ${currentSort === 'none' ? 'selected' : ''}>Bez zoradenia</option>
-        <option value="priority" ${currentSort === 'priority' ? 'selected' : ''}>Podľa priority</option>
-        <option value="dueDate" ${currentSort === 'dueDate' ? 'selected' : ''}>Podľa dátumu</option>
+        <option value="none" ${currentSort === 'none' ? 'selected' : ''}>No sorting</option>
+        <option value="priority" ${currentSort === 'priority' ? 'selected' : ''}>By priority</option>
+        <option value="dueDate" ${currentSort === 'dueDate' ? 'selected' : ''}>By due date</option>
     `;
     sortSelect.addEventListener('change', (e) => {
         App.setCurrentSort(e.target.value);
@@ -93,7 +93,7 @@ export const renderTodos = () => {
     todoList.appendChild(headerWrapper);
 
     if (todos.length === 0) {
-        const emptyMessage = createElement('p', 'empty-message', 'Žiadne úlohy v tomto projekte');
+        const emptyMessage = createElement('p', 'empty-message', 'No tasks in this project');
         todoList.appendChild(emptyMessage);
         return;
     }
@@ -116,14 +116,14 @@ export const renderTodos = () => {
         <span class="todo-title">${todo.title}</span>
         <span class="todo-due-date ${isOverdue ? 'overdue' : ''}">${formatDueDate(todo.dueDate)}</span>
         <div class="todo-actions">
-          <button class="btn-expand" title="Detaily">▼</button>
-          <button class="btn-delete" title="Zmazať">×</button>
+          <button class="btn-expand" title="Details">▼</button>
+          <button class="btn-delete" title="Delete">×</button>
         </div>
       </div>
       <div class="todo-details hidden">
-        <p class="todo-description">${todo.description || 'Bez popisu'}</p>
+        <p class="todo-description">${todo.description || 'No description'}</p>
         <p class="todo-notes">${todo.notes || ''}</p>
-        <button class="btn-edit">Upraviť</button>
+        <button class="btn-edit">Edit</button>
       </div>
     `;
 
@@ -199,7 +199,7 @@ const attachProjectListeners = () => {
         item.addEventListener('click', (e) => {
             if (e.target.classList.contains('btn-delete-project')) {
                 const projectId = item.dataset.projectId;
-                if (confirm('Naozaj chcete zmazať tento projekt?')) {
+                if (confirm('Are you sure you want to delete this project?')) {
                     App.deleteProject(projectId);
                     renderProjects();
                     renderTodos();
@@ -232,7 +232,7 @@ const attachTodoListeners = () => {
 
         // Delete
         item.querySelector('.btn-delete')?.addEventListener('click', () => {
-            if (confirm('Naozaj chcete zmazať túto úlohu?')) {
+            if (confirm('Are you sure you want to delete this task?')) {
                 App.deleteTodo(todoId);
                 renderTodos();
                 renderProjects(); // Update counts
