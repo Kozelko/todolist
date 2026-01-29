@@ -221,6 +221,7 @@ const attachTodoListeners = () => {
         item.querySelector('.todo-checkbox')?.addEventListener('change', () => {
             App.toggleTodoComplete(todoId);
             renderTodos();
+            renderProjects(); // Update project counts
         });
 
         // Expand/Collapse
