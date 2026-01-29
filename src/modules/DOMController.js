@@ -149,6 +149,32 @@ export const hideAddProjectModal = () => {
     }
 };
 
+export const showEditTodoModal = (todoId) => {
+    const modal = document.querySelector('.modal-edit-todo');
+    const todo = App.getTodoById(todoId);
+
+    if (modal && todo) {
+        // Vyplň formulár aktuálnymi hodnotami
+        modal.querySelector('#edit-todoId').value = todo.id;
+        modal.querySelector('#edit-title').value = todo.title;
+        modal.querySelector('#edit-description').value = todo.description || '';
+        modal.querySelector('#edit-dueDate').value = todo.dueDate || '';
+        modal.querySelector('#edit-priority').value = todo.priority || 'medium';
+        modal.querySelector('#edit-notes').value = todo.notes || '';
+
+        modal.classList.remove('hidden');
+        modal.querySelector('#edit-title')?.focus();
+    }
+};
+
+export const hideEditTodoModal = () => {
+    const modal = document.querySelector('.modal-edit-todo');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.querySelector('form')?.reset();
+    }
+};
+
 // === EVENT LISTENERS ===
 const attachProjectListeners = () => {
     document.querySelectorAll('.project-item').forEach((item) => {
@@ -193,6 +219,11 @@ const attachTodoListeners = () => {
                 renderProjects(); // Update counts
             }
         });
+
+        // Edit
+        item.querySelector('.btn-edit')?.addEventListener('click', () => {
+            showEditTodoModal(todoId);
+        });
     });
 };
 
@@ -223,6 +254,24 @@ export const initDOM = () => {
         renderProjects();
     });
 
+    // Edit todo form
+    document.querySelector('.form-edit-todo')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const todoId = formData.get('todoId');
+
+        App.editTodo(todoId, {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            dueDate: formData.get('dueDate'),
+            priority: formData.get('priority'),
+            notes: formData.get('notes'),
+        });
+
+        hideEditTodoModal();
+        renderTodos();
+    });
+
     // Buttons
     document.querySelector('.btn-add-todo')?.addEventListener('click', showAddTodoModal);
     document.querySelector('.btn-add-project')?.addEventListener('click', showAddProjectModal);
@@ -232,6 +281,7 @@ export const initDOM = () => {
         btn.addEventListener('click', () => {
             hideAddTodoModal();
             hideAddProjectModal();
+            hideEditTodoModal();
         });
     });
 
