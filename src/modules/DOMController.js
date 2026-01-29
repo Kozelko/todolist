@@ -67,12 +67,30 @@ export const renderTodos = () => {
 
     clearElement(todoList);
 
-    const todos = App.getTodosByActiveProject();
+    const todos = App.getSortedTodosByActiveProject();
     const activeProject = App.getActiveProject();
+    const currentSort = App.getCurrentSort();
 
-    // Hlavička
+    // Hlavička s názvom a sort selectom
+    const headerWrapper = createElement('div', 'todo-list-header-wrapper');
+
     const header = createElement('h2', 'todo-list-header', activeProject?.name || 'Todos');
-    todoList.appendChild(header);
+    headerWrapper.appendChild(header);
+
+    // Sort select
+    const sortSelect = createElement('select', 'sort-select');
+    sortSelect.innerHTML = `
+        <option value="none" ${currentSort === 'none' ? 'selected' : ''}>Bez zoradenia</option>
+        <option value="priority" ${currentSort === 'priority' ? 'selected' : ''}>Podľa priority</option>
+        <option value="dueDate" ${currentSort === 'dueDate' ? 'selected' : ''}>Podľa dátumu</option>
+    `;
+    sortSelect.addEventListener('change', (e) => {
+        App.setCurrentSort(e.target.value);
+        renderTodos();
+    });
+    headerWrapper.appendChild(sortSelect);
+
+    todoList.appendChild(headerWrapper);
 
     if (todos.length === 0) {
         const emptyMessage = createElement('p', 'empty-message', 'Žiadne úlohy v tomto projekte');
@@ -227,6 +245,16 @@ const attachTodoListeners = () => {
     });
 };
 
+// const sortSelectListener = () => {
+//     const sortSelect = document.querySelector('.sort-select');
+//     if (sortSelect) {
+//         sortSelect.addEventListener('change', (e) => {
+//             App.setCurrentSort(e.target.value);
+//             renderTodos();
+//         });
+//     }
+// };
+
 // === INICIALIZÁCIA ===
 export const initDOM = () => {
     // Add todo form
@@ -284,7 +312,7 @@ export const initDOM = () => {
             hideEditTodoModal();
         });
     });
-
+    // sortSelectListener();
     // Initial render
     renderProjects();
     renderTodos();

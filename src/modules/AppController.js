@@ -7,6 +7,7 @@ import { saveToStorage, loadFromStorage } from './Storage.js';
 let projects = [];
 let todos = [];
 let activeProjectId = 'default';
+let currentSort = 'none';
 
 // Inicializácia aplikácie
 export const initApp = () => {
@@ -125,4 +126,36 @@ export const getProjectStats = (projectId) => {
         completed: projectTodos.filter((t) => t.completed).length,
         pending: projectTodos.filter((t) => !t.completed).length,
     };
+};
+
+// === SORTING FUNKCIE ===
+export const sortTodosByDueDate = (todoList) => {
+    return [...todoList].sort((a, b) => {
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+};
+
+export const sortTodosByPriority = (todoList) => {
+    const priorityOrder = { high: 1, medium: 2, low: 3 };
+    return [...todoList].sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+};
+
+export const setCurrentSort = (sortType) => {
+    currentSort = sortType;
+};
+
+export const getCurrentSort = () => {
+    return currentSort;
+};
+
+export const getSortedTodosByActiveProject = () => {
+    let projectTodos = getTodosByActiveProject();
+    if (currentSort === 'dueDate') {
+        projectTodos = sortTodosByDueDate(projectTodos);
+    } else if (currentSort === 'priority') {
+        projectTodos = sortTodosByPriority(projectTodos);
+    }
+    return projectTodos;
 };

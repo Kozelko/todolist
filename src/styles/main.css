@@ -122,10 +122,32 @@ body {
   padding: 30px 40px;
 }
 
+.todo-list-header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
 .todo-list-header {
   font-size: 1.8rem;
-  margin-bottom: 25px;
+  margin: 0;
   color: var(--color-text);
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-white);
+  font-size: 0.9rem;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
 }
 
 .btn-add-todo {
